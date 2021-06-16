@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/vscode/devcontainers/java:11
-      options: -it
+      options: -u vscode -it
     steps:
     - name: Test
       run: |
