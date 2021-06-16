@@ -15,7 +15,7 @@ jobs:
     - name: Test
       run: |
         id
-        bash -l << 'BASHEOF'
+        bash -i << 'BASHEOF'
         
         sdk version
 
