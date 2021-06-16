@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/vscode/devcontainers/java:11
-      options: -u vscode --entrypoint 'bash -i -c'
+      options: -u vscode --entrypoint "bash -i -c"
     steps:
     - name: Test
       run: |
