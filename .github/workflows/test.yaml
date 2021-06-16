@@ -9,13 +9,17 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/vscode/devcontainers/java:11
-      options: -u vscode --entrypoint "bash -i -c"
+      image: mcr.microsoft.com/vscode/devcontainers/java:8
+      options: -u vscode
     steps:
     - name: Test
       run: |
         id
         env
+        
+        source ${SDKMAN_DIR}/bin/sdkman-init.sh
         sdk version
+        sdk install gradle
+        sdk install maven 
 
 
