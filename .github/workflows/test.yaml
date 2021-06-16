@@ -9,12 +9,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/vscode/devcontainers/java:8
+      image: mcr.microsoft.com/vscode/devcontainers/java:11
       options: -u vscode
     steps:
     - name: Test
       run: |
-        id
         bash -i << 'BASHEOF'
         
         sdk version
