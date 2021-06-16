@@ -1,0 +1,20 @@
+name: Test
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: [actions-test]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/vscode/devcontainers/java:11
+      options: -it
+    steps:
+    - name: Test
+      run: |
+        id
+        env
+
+
