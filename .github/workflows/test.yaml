@@ -14,6 +14,7 @@ jobs:
     steps:
     - name: Test
       run: |
+        exec bash -i
         id
         env
         sdk version
