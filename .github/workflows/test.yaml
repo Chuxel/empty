@@ -14,8 +14,10 @@ jobs:
     steps:
     - name: Test
       run: |
-        id        
+        id
+        echo here
         . ${SDKMAN_DIR}/bin/sdkman-init.sh
+        echo here
         sdk version
         sdk install gradle
         sdk install maven 
