@@ -15,8 +15,7 @@ jobs:
     - name: Test
       run: |
         id        
-        source ${SDKMAN_DIR}/bin/sdkman-init.sh
-        env
+        . ${SDKMAN_DIR}/bin/sdkman-init.sh
         sdk version
         sdk install gradle
         sdk install maven 
