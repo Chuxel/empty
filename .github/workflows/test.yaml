@@ -15,11 +15,6 @@ jobs:
     - name: Test
       run: |
         id
-        echo here
-        . ${SDKMAN_DIR}/bin/sdkman-init.sh
-        echo here
-        sdk version
-        sdk install gradle
-        sdk install maven 
-
+        bash -c '. ${SDKMAN_DIR}/bin/sdkman-init.sh && sdk version'
+ 
 
