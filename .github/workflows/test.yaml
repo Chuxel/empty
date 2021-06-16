@@ -16,5 +16,6 @@ jobs:
       run: |
         id
         env
+        sdk version
 
 
