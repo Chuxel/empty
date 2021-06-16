@@ -15,6 +15,10 @@ jobs:
     - name: Test
       run: |
         id
-        bash -c '. ${SDKMAN_DIR}/bin/sdkman-init.sh && sdk version'
+        bash -i << 'BASHEOF'
+        
+        sdk version
+
+        BASHEOF
  
 
