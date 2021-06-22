@@ -2,7 +2,9 @@
 
 FROM mcr.microsoft.com/vscode/devcontainers/universal:1-focal
 
+USER root
 RUN echo "export PROFILE_VAR=true" >> /etc/profile
+USER codespace
 
 # ** [Optional] Uncomment this section to install additional packages. **
 # USER root
