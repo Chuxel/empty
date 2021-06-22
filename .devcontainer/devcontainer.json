@@ -3,7 +3,7 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"userEnvProbe": "loginInteractiveShell",
+	//"userEnvProbe": "loginInteractiveShell",
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
 		"go.toolsManagement.checkForUpdates": "off",
