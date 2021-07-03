@@ -1,0 +1,15 @@
+name: Test
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Test
+      run: |
+        docker buildx create --name vscode-dev-containers
+        docker run --privileged --rm tonistiigi/binfmt --install all
+        docker buildx ls 
+
