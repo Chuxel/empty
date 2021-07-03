@@ -1,4 +1,4 @@
-name: Test
+name: Test Buildx
 
 on: 
   workflow_dispatch:
@@ -11,7 +11,9 @@ jobs:
     steps:
     - name: Test
       run: |
-        docker buildx create --name vscode-dev-containers
+        docker buildx create --use --name vscode-dev-containers
         docker run --privileged --rm tonistiigi/binfmt --install all
-        docker buildx ls 
+        docker buildx ls
+        cd .devcontainer
+        docker buildx build --build-arg INSTALL_GRADLE=true --build-arg INSTALL_MAVEN=true --build-arg INSTALL_NODE=true --platform linux/arm64 .
 
