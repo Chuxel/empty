@@ -9,7 +9,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Test
+    - name: Checkout
+      id: checkout
+      uses: actions/checkout@v1
+    - name: Test buildx
       run: |
         docker buildx create --use --name vscode-dev-containers
         docker run --privileged --rm tonistiigi/binfmt --install all
