@@ -18,5 +18,5 @@ jobs:
         docker run --privileged --rm tonistiigi/binfmt --install all
         docker buildx ls
         cd .devcontainer
-        docker buildx build --build-arg INSTALL_GRADLE=true --build-arg INSTALL_MAVEN=true --build-arg INSTALL_NODE=true --platform linux/arm64 .
+        docker buildx build --build-arg INSTALL_GRADLE=true --build-arg INSTALL_MAVEN=true --build-arg INSTALL_NODE=true --platforms linux/arm64,linux/amd64 .
 
