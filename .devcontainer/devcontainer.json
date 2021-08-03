@@ -2,7 +2,7 @@
 {
 	"name": "cs50",
 	"image": "cs50/codespace:latest",
-	"runArgs": [ "--cpus", "0.75", "--memory", "1gb"],
+	"runArgs": [ "--cpus", ".9", "--memory", "1.75g"],
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
@@ -19,5 +19,5 @@
 	// "postCreateCommand": "yarn install",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+	"remoteUser": "ubuntu"
 }
