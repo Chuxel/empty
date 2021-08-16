@@ -1,6 +1,6 @@
 {
 	"name": "Debian",
-	"image": "mcr.microsoft.com/windowsazure/devcontainer/base:0-buster",
+	"image": "mcr.microsoft.com/vscode/devcontainers/base:0-buster",
 	"postCreateCommand": "if [ -f YES-IT-RAN.txt ]; then touch RAN-SECOND-TIME.txt; else touch YES-IT-RAN.txt; fi",
 	"remoteUser": "vscode"
 }
