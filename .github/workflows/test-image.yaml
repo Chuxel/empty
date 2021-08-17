@@ -8,16 +8,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/vscode/devcontainers/java:11
-      options: -u vscode
     steps:
     - name: Test
       run: |
-        bash -i << 'BASHEOF'
-        
-        sdk version
+        cat $HOME/.docker/config.json
 
-        BASHEOF
  
 
