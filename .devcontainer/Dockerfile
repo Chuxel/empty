@@ -1,4 +1,5 @@
-FROM ghcr.io/chuxel/vscode-dev-containers-scratchpad-private:latest
+#FROM ghcr.io/chuxel/vscode-dev-containers-scratchpad-private:latest
+FROM chuxel/test:latest
 
 # Install MongoDB command line tools
 ARG MONGO_TOOLS_VERSION=4.2
