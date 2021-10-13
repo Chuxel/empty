@@ -15,5 +15,5 @@ jobs:
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /usr/share/keyrings/yarn-archive-keyring.gpg
         cat /usr/share/keyrings/yarn-archive-keyring.gpg
 
-        docker run -it --rm python:3.10-buster bash -c "$(wget -qO- "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/node-debian.sh")" 
+        docker run --rm python:3.10-buster bash -c "$(wget -qO- "https://raw.githubusercontent.com/microsoft/vscode-dev-containers/main/script-library/node-debian.sh")" 
 

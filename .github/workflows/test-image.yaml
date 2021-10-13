@@ -3,7 +3,7 @@ name: Test using image for action environment
 on: 
   workflow_dispatch:
   push:
-    branches: [actions-test]
+    # branches: [actions-test]
 
 jobs:
   test:
