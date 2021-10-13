@@ -1,4 +1,4 @@
-name: Test using image for action environment
+name: Test gpg
 
 on: 
   workflow_dispatch:
@@ -12,6 +12,9 @@ jobs:
     - name: Test
       run: |
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /usr/share/keyrings/yarn-archive-keyring.gpg
+        cat /usr/share/keyrings/yarn-archive-keyring.gpg
+
+      
 
  
 
