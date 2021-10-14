@@ -2,8 +2,8 @@ name: Test Buildx
 
 on: 
   workflow_dispatch:
-  #push:
-  #  branches: [actions-test]
+  push:
+    branches: [actions-test]
 
 jobs:
   test:
@@ -17,6 +17,7 @@ jobs:
         docker buildx create --use --name vscode-dev-containers
         docker run --privileged --rm tonistiigi/binfmt --install all
         docker buildx ls
-        cd .devcontainer
-        docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile .
+        # cd .devcontainer
+        # docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile .
+        docker buildx build --platform linux/amd64 -f .devcontainer/base.Dockerfile .
 
