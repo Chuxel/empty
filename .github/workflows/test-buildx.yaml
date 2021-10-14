@@ -18,5 +18,6 @@ jobs:
         docker run --privileged --rm tonistiigi/binfmt --install all
         docker buildx ls
         cd .devcontainer
-        docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile .
+        # docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile .
+        docker buildx build --platform linux/amd64 -f base.Dockerfile .
 
