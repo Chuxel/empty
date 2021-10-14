@@ -2,8 +2,8 @@ name: Test Buildx
 
 on: 
   workflow_dispatch:
-  push:
-    # branches: [actions-test]
+  #push:
+  #  branches: [actions-test]
 
 jobs:
   test:
@@ -18,5 +18,5 @@ jobs:
         docker run --privileged --rm tonistiigi/binfmt --install all
         docker buildx ls
         cd .devcontainer
-        docker buildx build --build-arg INSTALL_GRADLE=true --build-arg INSTALL_MAVEN=true --build-arg INSTALL_NODE=true --platform linux/arm64,linux/amd64 .
+        docker buildx build --platform linux/arm64,linux/amd64 -f base.Dockerfile .
 
