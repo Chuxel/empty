@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: test action
       id: test_action
-      uses: .github/actions/test-action
+      uses: ./.github/actions/test-action
       with:
         option: true
 
