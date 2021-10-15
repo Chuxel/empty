@@ -12,21 +12,11 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Azure CLI login
-      id: az_login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZ_ACR_CREDS }}
-
     - name: Build image
       id: build_image
       shell: bash
       run: |
         set -e
-
-        # ACR login
-        ACR_REGISTRY_NAME=$(echo ${{ secrets.REGISTRY }} | grep -oP '(.+)(?=\.azurecr\.io)')
-        az acr login --name $ACR_REGISTRY_NAME
 
         # Run test build
         yarn install
@@ -37,11 +27,11 @@ runs:
         build/vscdc push  ${{ inputs.definition }} \
                           --no-push \
                           --release $GIT_BRANCH \
-                          --github-repo ${{ github.repository }} \
-                          --registry ${{ secrets.REGISTRY }} \
-                          --registry-path ${{ secrets.REGISTRY_BASE_PATH }} \
-                          --stub-registry ${{ secrets.STUB_REGISTRY }} \
-                          --stub-registry-path ${{ secrets.STUB_REGISTRY_BASE_PATH }}
+                          --github-repo "microsoft/vscode-dev-containers" \
+                          --registry "mcr.microsoft.com" \
+                          --registry-path "vscode/devcontainers" \
+                          --stub-registry "mcr.microsoft.com" \
+                          --stub-registry-path  "vscode/devcontainers"
 
     - name: Test image
       id: test_image
