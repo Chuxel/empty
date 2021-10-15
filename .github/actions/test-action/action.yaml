@@ -1,0 +1,12 @@
+name: 'Test action'
+inputs:
+  option:
+    description: 'An option'
+    required: true
+    default: false
+
+runs:
+  using: composite
+  steps:
+  - name: Echo
+    run: echo "Testing 1, 2, 3. option: ${{ inputs.option }}"

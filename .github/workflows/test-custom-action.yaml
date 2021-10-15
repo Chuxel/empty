@@ -1,0 +1,17 @@
+name: Test custom action
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: [actions-test]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test action
+      id: test_action
+      uses: test-action
+      with:
+        option: true
+

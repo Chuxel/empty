@@ -2,8 +2,8 @@ name: Test Buildx
 
 on: 
   workflow_dispatch:
-  push:
-    branches: [actions-test]
+  #push:
+  #  branches: [actions-test]
 
 jobs:
   test:
