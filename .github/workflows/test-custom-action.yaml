@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: test action
       id: test_action
-      uses: test-action
+      uses: ./test-action
       with:
         option: true
 
