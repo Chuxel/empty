@@ -24,6 +24,7 @@ runs:
         if [ "$GIT_BRANCH" == "" ]; then 
             GIT_BRANCH=main
         fi
+        chmod +x build/vscdc
         build/vscdc push  ${{ inputs.definition }} \
                           --no-push \
                           --release $GIT_BRANCH \
