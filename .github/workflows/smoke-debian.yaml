@@ -20,4 +20,4 @@ jobs:
       uses: ./.github/actions/smoke-test
       with:
         definition: debian
-        image: mcr.microsoft.com/vscode/devcontainers:dev-debian
+        image: mcr.microsoft.com/vscode/devcontainers/base:dev-debian
