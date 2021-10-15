@@ -3,7 +3,7 @@ name: Smoke test "debian" build
 on: 
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [actions-test]
     paths:
       - 'containers/debian/**'
 jobs:
