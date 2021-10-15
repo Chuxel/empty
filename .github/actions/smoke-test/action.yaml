@@ -1,0 +1,65 @@
+name: 'VSCDC smoke test'
+inputs:
+  definition:
+    description: 'Definition to test'
+    required: true
+    default: 'debian'
+  image:
+    description: 'Image to run smoke test in'
+    required: true
+    default: 'none'
+
+runs:
+  using: composite
+  steps:
+    - name: Azure CLI login
+      id: az_login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZ_ACR_CREDS }}
+
+    - name: Build image
+      id: build_image
+      shell: bash
+      run: |
+        set -e
+
+        # ACR login
+        ACR_REGISTRY_NAME=$(echo ${{ secrets.REGISTRY }} | grep -oP '(.+)(?=\.azurecr\.io)')
+        az acr login --name $ACR_REGISTRY_NAME
+
+        # Run test build
+        yarn install
+        GIT_BRANCH=$(echo "${{ github.ref }}" | grep -oP 'refs/(heads|tags)/\K(.+)')
+        if [ "$GIT_BRANCH" == "" ]; then 
+            GIT_BRANCH=main
+        fi
+        build/vscdc push  ${{ inputs.definition }} \
+                          --no-push \
+                          --release $GIT_BRANCH \
+                          --github-repo ${{ github.repository }} \
+                          --registry ${{ secrets.REGISTRY }} \
+                          --registry-path ${{ secrets.REGISTRY_BASE_PATH }} \
+                          --stub-registry ${{ secrets.STUB_REGISTRY }} \
+                          --stub-registry-path ${{ secrets.STUB_REGISTRY_BASE_PATH }}
+
+    - name: Test image
+      id: test_image
+      shell: bash
+      run: |
+        if [ "${{ inputs.image }}" != "none" ]; then
+          docker run --rm --init --privileged -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" "${{ inputs.image }}" /bin/sh -c  '\
+            cd /workspace \
+            && echo "Environment:\n$(env)" \
+            && if [ -f "test-project/test.sh" ]; then \
+              cd test-project \
+              && if [ "$(id -u)" = "0" ]; then \
+                chmod +x test.sh; \
+              else \
+                sudo chmod +x test.sh; \
+              fi \
+              && ./test.sh; \
+            else \
+              ls -a; 
+            fi'
+        fi
