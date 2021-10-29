@@ -15,7 +15,7 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [],
 
-	"initializeCommand": "env | tee env.log && bash .devcontainer/ecr-login.sh 2>&1 tee | ecr-login.log",
+	"initializeCommand": "env | tee env.log && bash .devcontainer/ecr-login.sh 2>&1 | tee ecr-login.log",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
