@@ -2,7 +2,8 @@
 
 # [Choice] Debian version (use bullseye or stretch on local arm64/Apple Silicon): bullseye, buster, stretch
 ARG VARIANT="buster"
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
+#FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
+FROM 711005317894.dkr.ecr.us-east-2.amazonaws.com/vscode/devcontainers/base:0-${VARIANT}
 
 # ** [Optional] Uncomment this section to install additional packages. **
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
