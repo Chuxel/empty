@@ -21,3 +21,4 @@ jobs:
       with:
         definition: debian
         image: mcr.microsoft.com/vscode/devcontainers/base:dev-debian
+        user: vscode

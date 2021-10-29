@@ -61,7 +61,8 @@ runs:
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
           echo \"(*) Creating folders in \$HOME...\" \
           && mkdir -p \$HOME/.vscode-test-server/bin \$HOME/.vscode-test-server/bin/extensions \ 
-          && if [ \"${extensions// /}\" != '' ]; then cd \$HOME/.vscode-test-server/extensions && echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
+          && cd \$HOME/.vscode-test-server/extensions \
+          && if [ \"${extensions// /}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
 
         # Run actual test
         echo "(*) Running test..."
