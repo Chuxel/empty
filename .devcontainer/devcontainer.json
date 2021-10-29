@@ -15,7 +15,7 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [],
 
-	"initializeCommand": "env > env.log && bash ${localWorkspaceFolder}/.devcontainer/ecr-login.sh > ecr-login.log 2>&1",
+	"initializeCommand": "env > env.log && bash.devcontainer/ecr-login.sh > ecr-login.log 2>&1",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
