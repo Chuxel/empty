@@ -57,11 +57,10 @@ runs:
         echo "(*) devcontainer.json:"
         cat "${dev_container_tmp}"
         extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' ' ' 2>/dev/null || echo '')"
-        echo "(*) Extensions: \"${extensions}\""
+        echo "(*) Extensions in devcontainer.json: ${extensions}"
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
-          mkdir -p \$HOME/.vscode-test-server/extensions \ 
-          cd \$HOME/.vscode-test-server/extensions \ 
-          if [ \"${extensions// /}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
+          mkdir -p \$HOME/.vscode-test-server/bin \$HOME/.vscode-test-server/bin/extensions \ 
+          if [ \"${extensions// /}\" != '' ]; then cd \$HOME/.vscode-test-server/extensions && echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
 
         # Run actual test
         echo "(*) Running test..."
