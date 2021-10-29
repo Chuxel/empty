@@ -23,7 +23,8 @@ fi
 # Login
 export AWS_ACCESS_KEY_ID="${!access_key_id_env_var}"
 export AWS_SECRET_ACCESS_KEY="${!aws_secret_access_key_env_var}"
-# aws ecr get-login-password --region ${!region_env_var} | docker login --username AWS --password-stdin ${!account_id_env_var}.dkr.ecr.${!region_env_var}.amazonaws.com
+aws ecr get-login-password --region ${!region_env_var} | \
+    docker login --username AWS --password-stdin ${!account_id_env_var}.dkr.ecr.${!region_env_var}.amazonaws.com
 
 # clean up
 #rm -rf "${tmp_root}"
