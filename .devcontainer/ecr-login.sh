@@ -10,13 +10,13 @@ secret_access_key_env_var="${4:-"AWS_SECRET_ACCESS_KEY"}"
 
 # Abort if reequired env vars not set
 account_id="${!account_id_env_var}"
-if [ -z "${account_id}"]; then echo "(!) ${account_id_env_var} not set. Aborting."; exit 0; fi
+if [ -z "${account_id}" ]; then echo "(!) ${account_id_env_var} not set. Aborting."; exit 0; fi
 region="${!region_env_var}"
-if [ -z "${region}"]; then echo "(!) ${region_env_var} not set. Aborting."; exit 0; fi
+if [ -z "${region}" ]; then echo "(!) ${region_env_var} not set. Aborting."; exit 0; fi
 export AWS_ACCESS_KEY_ID="${!access_key_id_env_var}"
-if [ -z "${AWS_ACCESS_KEY_ID}"]; then echo "(!) ${access_key_id_env_var} not set. Aborting."; exit 0; fi
+if [ -z "${AWS_ACCESS_KEY_ID}" ]; then echo "(!) ${access_key_id_env_var} not set. Aborting."; exit 0; fi
 export AWS_SECRET_ACCESS_KEY="${!secret_access_key_env_var}"
-if [ -z "${AWS_SECRET_ACCESS_KEY}"]; then echo "(!) ${secret_access_key_env_var} not set. Aborting."; exit 0; fi
+if [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then echo "(!) ${secret_access_key_env_var} not set. Aborting."; exit 0; fi
 
 tmp_root="/tmp/__aws-tmp"
 
