@@ -8,6 +8,10 @@ inputs:
     description: 'Image to run smoke test in'
     required: true
     default: 'none'
+  user:
+    description: 'Userr in container image to use for smoke test'
+    required: true
+    default: 'vscode'
 
 runs:
   using: composite
