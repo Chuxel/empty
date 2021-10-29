@@ -38,6 +38,8 @@ runs:
       id: test_image
       shell: bash
       run: |
+        # Run test script for image if one exists
+
         if [ "${{ inputs.image }}" = "none" ]; then
           echo "Image not specified. Aborting test."
           exit 0
@@ -46,21 +48,23 @@ runs:
         set -e
         
         # Fake out existance of extensions, VS Code Server
-        echo "Stubbing out extensions and VS Code Server..."
+        echo "(*) Stubbing out extensions and VS Code Server..."
         dev_container_relative_path="containers/${{ inputs.definition }}/.devcontainer"
         mkdir -p "/tmp/${dev_container_relative_path}"
-        cp -f $(pwd)/${dev_container_relative_path}/devcontainer.json "/tmp/${dev_container_relative_path}/"
+        cp -f "$(pwd)/${dev_container_relative_path}/devcontainer.json" "/tmp/${dev_container_relative_path}/"
         dev_container_tmp="/tmp/${dev_container_relative_path}/devcontainer.json"
         sed -i'.bak' -e "s/\\/\\/.*/ /g" "${dev_container_tmp}"
+        echo "(*) devcontainer.json:"
+        cat "${dev_container_tmp}"
         extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' ' ') 2>/dev/null || echo ''"
-        echo "Extensions: ${exteensions}"
+        echo "(*) Extensions: \"${extensions}\""
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
-          mkdir -p \"\$HOME/.vscode-test-server/extensions\" \ 
-          cd \"\$HOME/.vscode-test-server/extensions\" \ 
-          if [ \"${extensions}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
+          mkdir -p \$HOME/.vscode-test-server/extensions \ 
+          cd \$HOME/.vscode-test-server/extensions \ 
+          if [ \"${extensions// /}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
 
         # Run actual test
-        echo "Running test..."
+        echo "(*) Running test..."
         docker run --rm --init --privileged -u "${{ inputs.user }}" -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" "${{ inputs.image }}" /bin/sh -c  '\
           set -e
           cd /workspace \
