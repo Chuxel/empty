@@ -2,8 +2,6 @@
 
 set +e
 
-touch "$(dirname $0)/ecr-login.sh.done"
-
 account_id_env_var=${1:-"ECR_ACCOUNT_ID"}
 region_env_var=${1:-"ECR_REGION"}
 access_key_id_env_var="${2:-"AWS_ACCESS_KEY_ID"}"
