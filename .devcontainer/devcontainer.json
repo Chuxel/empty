@@ -15,7 +15,7 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [],
 
-	"initializeCommand": "env > env.log && bash .devcontainer/ecr-login.sh > ecr-login.log 2>&1",
+	"initializeCommand": "export ECR_ACCOUNT_ID; export ECR_ACCOUNT_ID; export AWS_ACCESS_KEY_ID; export AWS_SECRET_ACCESS_KEY; env > env.log && bash .devcontainer/ecr-login.sh > ecr-login.log 2>&1",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
