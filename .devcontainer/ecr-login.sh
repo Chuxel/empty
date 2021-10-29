@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Get environment variable names with secrets in them
 account_id_env_var=${1:-"ECR_ACCOUNT_ID"}
 region_env_var=${2:-"ECR_REGION"}
