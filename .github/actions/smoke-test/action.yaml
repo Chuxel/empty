@@ -56,7 +56,7 @@ runs:
         sed -i'.bak' -e "s/\\/\\/.*/ /g" "${dev_container_tmp}"
         echo "(*) devcontainer.json:"
         cat "${dev_container_tmp}"
-        extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' ' ') 2>/dev/null || echo ''"
+        extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' ' ' 2>/dev/null || echo '')"
         echo "(*) Extensions: \"${extensions}\""
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
           mkdir -p \$HOME/.vscode-test-server/extensions \ 
