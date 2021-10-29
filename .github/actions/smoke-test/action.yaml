@@ -46,11 +46,12 @@ runs:
         set -e
         
         # Fake out existance of extensions, VS Code server
-        dev_container_relative_path="/containers/${{ inputs.definition }}/.devcontainer/devcontainer.json"
+        dev_container_relative_path="/containers/${{ inputs.definition }}/.devcontainer"
         mkdir -p "/tmp/${dev_container_relative_path}"
-        cp -f $(pwd)/${dev_container_relative_path} "/tmp/${dev_container_relative_path}"
-        sed -i'.bak' -e "s/\\/\\/.*/ /g" "/tmp/${dev_container_relative_path}"
-        extensions="$(jq '.extensions' --compact-output "/tmp/${dev_container_relative_path}" | tr -d '[' | tr -d ']' | tr ',' ' ') 2>/dev/null || echo ''"
+        cp -f $(pwd)/${dev_container_relative_path}/devcontainer.json "/tmp/${dev_container_relative_path}/"
+        dev_container_tmp="/tmp/${dev_container_relative_path}/devcontainer.json"
+        sed -i'.bak' -e "s/\\/\\/.*/ /g" "${dev_container_tmp}"
+        extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' ' ') 2>/dev/null || echo ''"
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
           mkdir -p \"\$HOME/.vscode-test-server/extensions\" \ 
           cd \"\$HOME/.vscode-test-server/extensions\" \ 
