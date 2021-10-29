@@ -1,17 +1,23 @@
 #!/bin/bash
 
-set +e
-
-env
-
+# Get environment variable names with secrets in them
 account_id_env_var=${1:-"ECR_ACCOUNT_ID"}
-region_env_var=${1:-"ECR_REGION"}
-access_key_id_env_var="${2:-"AWS_ACCESS_KEY_ID"}"
-aws_secret_access_key_env_var="${3:-"AWS_SECRET_ACCESS_KEY"}"
+region_env_var=${2:-"ECR_REGION"}
+access_key_id_env_var="${3:-"AWS_ACCESS_KEY_ID"}"
+secret_access_key_env_var="${4:-"AWS_SECRET_ACCESS_KEY"}"
+
+# Abort if reequired env vars not set
+account_id="${!account_id_env_var}"
+if [ -z "${account_id}"]; then echo "(!) ${account_id_env_var} not set. Aborting."; exit 0; fi
+region="${!region_env_var}"
+if [ -z "${region}"]; then echo "(!) ${region_env_var} not set. Aborting."; exit 0; fi
+export AWS_ACCESS_KEY_ID="${!access_key_id_env_var}"
+if [ -z "${AWS_ACCESS_KEY_ID}"]; then echo "(!) ${access_key_id_env_var} not set. Aborting."; exit 0; fi
+export AWS_SECRET_ACCESS_KEY="${!secret_access_key_env_var}"
+if [ -z "${AWS_SECRET_ACCESS_KEY}"]; then echo "(!) ${secret_access_key_env_var} not set. Aborting."; exit 0; fi
 
 tmp_root="/tmp/__aws-tmp"
 
-rm -rf "${tmp_root}"
 mkdir -p "${tmp_root}"
 
 # Download aws CLI into temp spot if not found
@@ -23,10 +29,8 @@ if ! type aws > /dev/null 2>&1; then
 fi
 
 # Login
-export AWS_ACCESS_KEY_ID="${!access_key_id_env_var}"
-export AWS_SECRET_ACCESS_KEY="${!aws_secret_access_key_env_var}"
-#aws ecr get-login-password --region ${!region_env_var} | \
-#    docker login --username AWS --password-stdin ${!account_id_env_var}.dkr.ecr.${!region_env_var}.amazonaws.com
+aws ecr get-login-password --region ${region} | \
+    docker login --username AWS --password-stdin ${account_id}.dkr.ecr.${region}.amazonaws.com
 
 # clean up
-#rm -rf "${tmp_root}"
+rm -rf "${tmp_root}"
