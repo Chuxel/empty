@@ -2,7 +2,6 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.202.5/containers/debian
 {
 	"name": "Debian",
-	"runArgs": ["--init"],
 	"build": {
 		"dockerfile": "Dockerfile",
 		// Update 'VARIANT' to pick an Debian version: bullseye, buster, stretch
@@ -16,7 +15,7 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [],
 
-	"initializeCommand": "bash ${localWorkspaceFolder}/.devcontainer/ecr-login.sh > ${localWorkspaceFolder}/init.log 2>&1",
+	"initializeCommand": "env > env.log && bash .devcontainer/ecr-login.sh > ecr-login.log 2>&1",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
