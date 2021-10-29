@@ -46,7 +46,7 @@ runs:
         set -e
         
         # Fake out existance of extensions, VS Code Server
-        echoo "Stubbing out extensions and VS Code Server..."
+        echo "Stubbing out extensions and VS Code Server..."
         dev_container_relative_path="containers/${{ inputs.definition }}/.devcontainer"
         mkdir -p "/tmp/${dev_container_relative_path}"
         cp -f $(pwd)/${dev_container_relative_path}/devcontainer.json "/tmp/${dev_container_relative_path}/"
