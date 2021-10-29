@@ -7,7 +7,7 @@ region_env_var=${1:-"ECR_REGION"}
 access_key_id_env_var="${2:-"AWS_ACCESS_KEY_ID"}"
 aws_secret_access_key_env_var="${3:-"AWS_SECRET_ACCESS_KEY"}"
 
-tmp_root="${HOME:-"/root"}/__aws-tmp"
+tmp_root="/tmp/__aws-tmp"
 
 rm -rf "${tmp_root}"
 mkdir -p "${tmp_root}"
