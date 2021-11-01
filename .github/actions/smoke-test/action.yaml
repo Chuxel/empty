@@ -60,11 +60,11 @@ runs:
         sed -i'.bak' -e "s/\\/\\/.*/ /g" "${dev_container_tmp}"
         echo "(*) devcontainer.json:"
         cat "${dev_container_tmp}"
-        extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' '\n' 2>/dev/null || echo '')"
+        extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' '\n' 2>/dev/null || echo -n '')"
         echo "(*) Extensions in devcontainer.json: ${extensions}"
         docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
           echo \"(*) Creating folders in \$HOME...\" \
-          && mkdir -p \$HOME/.vscode-test-server/bin \$HOME/.vscode-test-server/bin/extensions \ 
+          && mkdir -p \$HOME/.vscode-test-server/bin \$HOME/.vscode-test-server/bin/extensions \
           && cd \$HOME/.vscode-test-server/extensions \
           && if [ \"${extensions}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
 
