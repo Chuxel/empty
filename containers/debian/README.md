@@ -62,7 +62,7 @@ Just follow these steps:
    2. Start VS Code and open your project folder or connect to a codespace.
    3. Use your local operating system's file explorer to drag-and-drop the locally cloned copy of the `.devcontainer` folder for this definition into the VS Code file explorer for your opened project or codespace.
    4. Update `.devcontainer/devcontainer.json` to reference `"dockerfile": "base.Dockerfile"`.
-
+ 
 4. After following step 2 or 3, the contents of the `.devcontainer` folder in your project can be adapted to meet your needs.
 
 5. Finally, press <kbd>F1</kbd> and run **Remote-Containers: Reopen Folder in Container** or **Codespaces: Rebuild Container** to start using the definition.
@@ -72,3 +72,4 @@ Just follow these steps:
 Copyright (c) Microsoft Corporation. All rights reserved.
 
 Licensed under the MIT License. See [LICENSE](https://github.com/microsoft/vscode-dev-containers/blob/main/LICENSE)
+
