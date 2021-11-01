@@ -28,7 +28,7 @@ if ! type aws > /dev/null 2>&1; then
         echo "(*) Installing AWS CLI in temp location..."
         mkdir -p "${tmp_root}"
         curl -sSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "${tmp_root}/awscliv2.zip"
-        unzip "${tmp_root}/awscliv2.zip" -d "${tmp_root}"
+        unzip "${tmp_root}/awscliv2.zip" -d "${tmp_root}" > /dev/null
         "${tmp_root}/aws/install" -i ${tmp_root}/aws-cli -b ${tmp_root}/bin
     fi
     export PATH="${PATH}:${tmp_root}/bin"
