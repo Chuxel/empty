@@ -19,7 +19,7 @@ cat > /tmp/gpginput <<EOF
      %commit
      %echo done
 EOF
-gpg_output="$(gpg --batch --pinentry-mode loopback --generate-key --passphrase '' /tmp/gpginput)"
+gpg_output="$(gpg --batch --pinentry-mode loopback --generate-key --passphrase '' /tmp/gpginput 2>&1)"
 key_id="$(echo "${gpg_output}" | grep -oP 'key\s+\K[^\s]+')"
 pass init ${key_id}
 
