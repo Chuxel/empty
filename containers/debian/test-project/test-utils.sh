@@ -28,6 +28,8 @@ checkMultiple() {
     echo -e "\n🧪 Testing $LABEL."
     shift; MINIMUMPASSED=$1
     shift; EXPRESSION="$1"
+    echo "${EXPRESSION}"
+    echo "${MINIMUMPASSED}"
     while [ "$EXPRESSION" != "" ]; do
         if $EXPRESSION; then ((PASSED++)); fi
         shift; EXPRESSION=$1
