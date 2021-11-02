@@ -1,4 +1,6 @@
 #/bin/bash
+echo "pinentry-program /usr/bin/pinentry-tty" >> ~/.gnupg/gpg-agent.conf
+
 sudo sed -i -E 's/helper =.*//' /etc/gitconfig
 git config --global credential.credentialStore gpg
 git-credential-manager-core configure
@@ -19,7 +21,7 @@ cat > /tmp/gpginput <<EOF
      %commit
      %echo done
 EOF
-gpg_output="$(gpg --batch --pinentry-mode loopback --generate-key --passphrase '' /tmp/gpginput 2>&1)"
+gpg_output="$(gpg2 --batch --pinentry-mode loopback --generate-key --passphrase '' /tmp/gpginput 2>&1)"
 key_id="$(echo "${gpg_output}" | grep -oP 'key\s+\K[^\s]+')"
 pass init ${key_id}
 
