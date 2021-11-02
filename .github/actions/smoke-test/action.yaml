@@ -73,8 +73,10 @@ runs:
         # Run actual test
         echo "(*) Running test..."
         docker run --rm --init --privileged -u "${{ inputs.user }}" -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" "${{ inputs.image }}" /bin/sh -c  '\
-          set -e
-          cd /workspace \
+          set -e \
+          && id \
+          && echo "$HOME" \
+          && cd /workspace \
           && if [ -f "test-project/test.sh" ]; then \
             cd test-project \
             && if [ "$(id -u)" = "0" ]; then \
