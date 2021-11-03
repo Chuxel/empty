@@ -33,10 +33,10 @@ runs:
         if [ -d "$GITHUB_WORKSPACE/__build/build" ]; then
           cd "$GITHUB_WORKSPACE/__build"
           yarn install
+          cd "$GITHUB_WORKSPACE"
           rm -rf build node_modules
           ln -s "$GITHUB_WORKSPACE/__build/build" build
           ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
-          cd "$GITHUB_WORKSPACE"
         else
           echo "WARNING: Using build/vscdc from ${{ github.ref }} instead of main."
         fi
