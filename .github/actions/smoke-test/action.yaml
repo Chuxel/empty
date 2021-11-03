@@ -9,7 +9,7 @@ inputs:
     required: true
     default: 'none'
   user:
-    description: 'Userr in container image to use for smoke test'
+    description: 'User in container image to use for smoke test'
     required: true
     default: 'vscode'
 
@@ -51,6 +51,10 @@ runs:
 
         set -e
         
+        # Start container
+        container_name="vscdc-test-container"
+        docker run -d --name ${container_name} --rm --init --privileged -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" ${{ inputs.image }})
+
         # Fake out existence of extensions, VS Code Server
         echo "(*) Stubbing out extensions and VS Code Server..."
         dev_container_relative_path="containers/${{ inputs.definition }}/.devcontainer"
@@ -58,21 +62,17 @@ runs:
         cp -f "$(pwd)/${dev_container_relative_path}/devcontainer.json" "/tmp/${dev_container_relative_path}/"
         dev_container_tmp="/tmp/${dev_container_relative_path}/devcontainer.json"
         sed -i'.bak' -e "s/\\/\\/.*/ /g" "${dev_container_tmp}"
-        echo "(*) devcontainer.json:"
-        cat "${dev_container_tmp}"
         extensions="$(jq '.extensions' --compact-output "${dev_container_tmp}" | tr -d '[' | tr -d ']' | tr ',' '\n' 2>/dev/null || echo -n '')"
         echo "(*) Extensions in devcontainer.json: ${extensions}"
-        docker run --rm --init --privileged -u "${{ inputs.user }}" "${{ inputs.image }}" /bin/sh -c "\
+        docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c "\
           echo \"(*) Creating folders in \$HOME...\" \
           && mkdir -p \$HOME/.vscode-server/bin \$HOME/.vscode-server/extensions \
-          && ls \$HOME/.vscode-server \
           && cd \$HOME/.vscode-server/extensions \
-          && pwd \
           && if [ \"${extensions}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi"
 
         # Run actual test
         echo "(*) Running test..."
-        docker run --rm --init --privileged -u "${{ inputs.user }}" -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" "${{ inputs.image }}" /bin/sh -c  '\
+        docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c  '\
           set -e \
           && id \
           && echo "$HOME" \

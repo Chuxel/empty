@@ -29,11 +29,13 @@ checkMultiple() {
     shift; MINIMUMPASSED=$1
     shift; EXPRESSION="$1"
     echo "${MINIMUMPASSED}"
-    echo "${EXPRESSION}"
     while [ "$EXPRESSION" != "" ]; do
-        if $EXPRESSION; then ((PASSED++)); fi
-        shift; EXPRESSION=$1
         echo "${EXPRESSION}"
+        if $EXPRESSION; then 
+            echo "Yes"
+            ((PASSED++))
+        fi
+        shift; EXPRESSION=$1
     done
     echo $PASSED
     if [ $PASSED -ge $MINIMUMPASSED ]; then
