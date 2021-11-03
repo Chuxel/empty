@@ -96,7 +96,7 @@ runs:
           mkdir -p \$HOME/.vscode-server/bin \$HOME/.vscode-server/extensions \
           && cd \$HOME/.vscode-server/extensions \
           && if [ \"${extensions}\" != '' ]; then echo \"${extensions}\" | xargs -n 1 mkdir -p; fi \
-          && find . -type d"
+          && find \$HOME/.vscode-server/ -type d"
 
         # Run actual test
         echo "(*) Running test..."
