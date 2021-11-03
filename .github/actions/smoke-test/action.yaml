@@ -76,10 +76,13 @@ runs:
         local_uid=$(id -u)
         local_gid=$(id -g)
         echo "(*) Update container user UID/GID..."
-        echo -e "FROM ${{ inputs.image }}\n
+        echo -e "FROM ${{ inputs.image }}\n \
+          ARG orig_user=$(whoami)\n \
+          USER root\n \
           RUN groupmod -g ${local_gid} ${{ inputs.user }} \
-          && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}" > /tmp/uid.Dockerfile
-        docker buildx build -t ${{ inputs.image }}-uid -f /tmp/uid.Dockerfile .
+            && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}\n \
+          USER ${orig_user}" > uid.Dockerfile
+        docker buildx build --load -t ${{ inputs.image }}-uid -f uid.Dockerfile .
 
         # Start container
         container_name="vscdc-test-container"
