@@ -39,6 +39,7 @@ runs:
           ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
         else
           echo "WARNING: Using build/vscdc from ${{ github.ref }} instead of main."
+          yarn install
         fi
 
         # Run test build
