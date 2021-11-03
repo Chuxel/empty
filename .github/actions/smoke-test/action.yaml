@@ -30,16 +30,17 @@ runs:
         set -e
 
         # Symlink build scripts from main to improve security when testing PRs
-        pwd
         cd "$GITHUB_WORKSPACE/__build"
+        pwd
+        ls -l
         yarn install
         cd "$GITHUB_WORKSPACE"
         pwd
         rm -rf build node_modules
         ln -s "$GITHUB_WORKSPACE/__build/build" build
         ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
-        ls
-        
+        ls -l
+
         # Run test build
         GIT_BRANCH=$(echo "${{ github.ref }}" | grep -oP 'refs/(heads|tags)/\K(.+)')
         if [ "$GIT_BRANCH" == "" ]; then 
