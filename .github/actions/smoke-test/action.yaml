@@ -72,7 +72,7 @@ runs:
         # Update UID/GID for user in container
         local_uid=$(id -u)
         local_gid=$(id -g)
-        docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c "\
+        docker exec -u root ${container_name} /bin/sh -c "\
           echo \"(*) Update user UID/GID...\" \
           && groupmod -g ${local_gid} ${{ inputs.user }} \
           && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}"
