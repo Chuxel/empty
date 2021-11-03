@@ -77,7 +77,7 @@ runs:
         local_gid=$(id -g)
         echo "(*) Update container user UID/GID..."
         echo -e "FROM ${{ inputs.image }}\n \
-          ARG orig_user=$(whoami)\n \
+          ARG orig_user=$USER\n \
           USER root\n \
           RUN groupmod -g ${local_gid} ${{ inputs.user }} \
             && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}\n \
