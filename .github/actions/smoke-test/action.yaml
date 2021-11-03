@@ -30,12 +30,14 @@ runs:
         set -e
 
         # Symlink build scripts from main to improve security when testing PRs
+        cd "$GITHUB_WORKSPACE/__build"
+        yarn install
         rm -rf build node_modules
         ln -s "$GITHUB_WORKSPACE/__build/build" build
         ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
-
+        cd "$GITHUB_WORKSPACE"
+        
         # Run test build
-        yarn install
         GIT_BRANCH=$(echo "${{ github.ref }}" | grep -oP 'refs/(heads|tags)/\K(.+)')
         if [ "$GIT_BRANCH" == "" ]; then 
             GIT_BRANCH=main
