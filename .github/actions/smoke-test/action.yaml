@@ -16,11 +16,23 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Checkout main
+      id: checkout_release
+      uses: actions/checkout@v2
+      with:
+        path: '__build'
+        ref: 'main'
+
     - name: Build image
       id: build_image
       shell: bash
       run: |
         set -e
+
+        # Symlink build scripts from main to improve security when testing PRs
+        rm -rf build node_modules
+        ln -s "$GITHUB_WORKSPACE/__build/build" build
+        ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
 
         # Run test build
         yarn install
@@ -54,6 +66,13 @@ runs:
         # Start container
         container_name="vscdc-test-container"
         docker run -d --name ${container_name} --rm --init --privileged -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" ${{ inputs.image }} /bin/sh -c 'while sleep 1000; do :; done'
+
+        # Update UID/GID for user in container
+        local_uid=$(id -u)
+        local_gid=$(id -g)
+        docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c "\
+          echo \"(*) Update user UID/GID...\" \
+          && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}"
 
         # Fake out existence of extensions, VS Code Server
         echo "(*) Stubbing out extensions and VS Code Server..."
