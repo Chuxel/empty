@@ -32,10 +32,10 @@ runs:
         # Symlink build scripts from main to improve security when testing PRs
         cd "$GITHUB_WORKSPACE/__build"
         yarn install
+        cd "$GITHUB_WORKSPACE"
         rm -rf build node_modules
         ln -s "$GITHUB_WORKSPACE/__build/build" build
         ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
-        cd "$GITHUB_WORKSPACE"
 
         # Run test build
         GIT_BRANCH=$(echo "${{ github.ref }}" | grep -oP 'refs/(heads|tags)/\K(.+)')
