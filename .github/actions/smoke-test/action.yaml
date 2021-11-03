@@ -74,7 +74,7 @@ runs:
         local_gid=$(id -g)
         docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c "\
           echo \"(*) Update user UID/GID...\" \
-          && groupmod -g ${{ local_gid }} ${{ inputs.user }} \
+          && groupmod -g ${local_gid} ${{ inputs.user }} \
           && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}"
 
         # Fake out existence of extensions, VS Code Server
