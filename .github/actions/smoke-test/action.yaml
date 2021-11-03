@@ -36,7 +36,7 @@ runs:
         ln -s "$GITHUB_WORKSPACE/__build/build" build
         ln -s "$GITHUB_WORKSPACE/__build/node_modules" node_modules
         cd "$GITHUB_WORKSPACE"
-        
+
         # Run test build
         GIT_BRANCH=$(echo "${{ github.ref }}" | grep -oP 'refs/(heads|tags)/\K(.+)')
         if [ "$GIT_BRANCH" == "" ]; then 
@@ -74,6 +74,7 @@ runs:
         local_gid=$(id -g)
         docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c "\
           echo \"(*) Update user UID/GID...\" \
+          && groupmod -g ${{ local_gid }} ${{ inputs.user }} \
           && usermod -u ${local_uid} -g ${local_gid} ${{ inputs.user }}"
 
         # Fake out existence of extensions, VS Code Server
