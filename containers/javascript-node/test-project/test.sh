@@ -6,7 +6,10 @@ source test-utils.sh node
 # Run common tests
 checkCommon
 
+ls -l 
+
 # Definition specific tests
+sudo rm -rf node_modules
 checkExtension "dbaeumer.vscode-eslint"
 check "node" node --version
 sudo rm -f yarn.lock
