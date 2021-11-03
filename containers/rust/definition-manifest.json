@@ -1,5 +1,5 @@
 {
-	"variants": ["buster", "bullseye"],
+	"variants": ["buster"],
 	"definitionVersion": "0.201.0",
 	"build": {
 		"latest": "buster",

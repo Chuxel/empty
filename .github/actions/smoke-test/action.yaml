@@ -69,7 +69,9 @@ runs:
         container_name="vscdc-test-container"
         docker run -d --name ${container_name} --rm --init --privileged -v "$(pwd)/containers/${{ inputs.definition }}:/workspace" ${{ inputs.image }} /bin/sh -c 'while sleep 1000; do :; done'
 
-        # Update UID/GID for user in container
+        # Update UID/GID for user in container - Actions uses different UID/GID than container
+        # which causes bind mounts to be read only and cause certain write tests to fail
+        # The dev container CLI handles this automatically but we're not using it.
         local_uid=$(id -u)
         local_gid=$(id -g)
         docker exec -u root ${container_name} /bin/sh -c "\
@@ -96,8 +98,6 @@ runs:
         echo "(*) Running test..."
         docker exec -u "${{ inputs.user }}" ${container_name} /bin/sh -c  '\
           set -e \
-          && id \
-          && echo "$HOME" \
           && cd /workspace \
           && if [ -f "test-project/test.sh" ]; then \
             cd test-project \
