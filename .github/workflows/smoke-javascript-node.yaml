@@ -21,4 +21,4 @@ jobs:
       with:
         definition: javascript-node
         image: mcr.microsoft.com/vscode/devcontainers/javascript-node:dev-16
-        user: vscode
+        user: node
