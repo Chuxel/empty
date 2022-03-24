@@ -1,20 +1,20 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3
 {
 	"name": "Python 3",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
 		"args": {
+			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use -bullseye variants on local on arm64/Apple Silicon.
 			"VARIANT": "3.8",
+			// Options
 			"NODE_VERSION": "none"
 		}
 	},
-
-	"runArgs": ["--init"],
-	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind" ],
-	"overrideCommand": false,
-	"remoteEnv": {
-		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	},
+	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
@@ -28,8 +28,8 @@
 			"source.organizeImports": true
 		},
 	},
+	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"ms-azuretools.vscode-docker",
 		"ms-python.python",
 		"ms-python.vscode-pylance",
 		"psioniq.psi-header",
@@ -42,5 +42,10 @@
 		"PYTHONPATH": "${containerWorkspaceFolder}"
 	},
 	//"postCreateCommand": "/scripts/setup_env.sh",
-	"remoteUser": "vscode"
+	"remoteUser": "vscode",
+	"features": {
+		"docker-from-docker": "latest",
+		"git": "os-provided",
+		"git-lfs": "latest"
+	}
 }
